@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게임그룹 전략 브리핑 — 2026.04.15</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B3A5C;
+    --navy-light: #254d78;
+    --orange: #E8963A;
+    --orange-light: #f5b06a;
+    --bg: #FAFBFC;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --text-muted: #5a6a7a;
+    --border: #e2e8f0;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* COVER */
+  .cover {
+    background: linear-gradient(135deg, #0f2440 0%, #1B3A5C 45%, #1d4d7a 100%);
+    color: white;
+    padding: 80px 40px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(232,150,58,0.12);
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(232,150,58,0.07);
+  }
+
+  .cover-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    background: rgba(232,150,58,0.25);
+    color: var(--orange-light);
+    border: 1px solid rgba(232,150,58,0.4);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 24px;
+  }
+
+  .cover h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .cover h1 span {
+    color: var(--orange);
+  }
+
+  .cover-meta {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 20px;
+  }
+
+  .cover-meta strong {
+    color: rgba(255,255,255,0.85);
+  }
+
+  /* CONTAINER */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+    margin-bottom: 40px;
+    box-shadow: 0 2px 12px rgba(27,58,92,0.05);
+  }
+
+  .toc h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .toc ol {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .toc ol li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .toc-num {
+    width: 24px;
+    height: 24px;
+    background: var(--navy);
+    color: white;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .toc a {
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .toc a:hover { color: var(--orange); }
+
+  /* SECTION */
+  .section {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 28px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(27,58,92,0.05);
+  }
+
+  .section-header {
+    background: linear-gradient(90deg, var(--navy) 0%, var(--navy-light) 100%);
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-num {
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .section-header h2 {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .section-header .badge {
+    margin-left: auto;
+    background: rgba(232,150,58,0.3);
+    color: var(--orange-light);
+    border: 1px solid rgba(232,150,58,0.5);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .section-body {
+    padding: 28px 32px;
+  }
+
+  /* LAYER CARDS */
+  .layer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .layer-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .layer-card .layer-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .layer-card h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  .layer-card p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .layer-card.highlight {
+    border-color: var(--orange);
+    background: #fff8f0;
+  }
+
+  .layer-card.highlight h4 { color: var(--orange); }
+
+  /* CALLOUT */
+  .callout {
+    background: #f0f5ff;
+    border-left: 4px solid var(--navy);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: var(--navy);
+  }
+
+  .callout.orange {
+    background: #fff8f0;
+    border-left-color: var(--orange);
+    color: #7a4010;
+  }
+
+  .callout strong {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+  }
+
+  /* TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 16px 0;
+  }
+
+  th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  th:first-child { border-radius: 8px 0 0 0; }
+  th:last-child { border-radius: 0 8px 0 0; }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg); }
+
+  /* FLOW */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+    padding: 16px 20px;
+    background: var(--bg);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .flow-item {
+    background: var(--navy);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .flow-item.orange {
+    background: var(--orange);
+  }
+
+  .flow-arrow {
+    color: var(--text-muted);
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  /* STAT CARDS */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .stat-card {
+    background: var(--navy);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+  }
+
+  .stat-card .stat-val {
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-card .stat-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    font-weight: 400;
+  }
+
+  /* TEXT */
+  p {
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .label {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  .label.orange { background: var(--orange); }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 24px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    background: white;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .cover { padding: 60px 24px 40px; }
+    .section-header { padding: 18px 20px; }
+    .section-body { padding: 20px; }
+    .layer-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .toc { padding: 20px; }
+    .section-header .badge { display: none; }
+  }
+
+  @media print {
+    body { background: white; }
+    .cover { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .section { break-inside: avoid; box-shadow: none; }
+    .section-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-badge">🎯 게임그룹 전략 브리핑</div>
+    <h1>오늘의 핵심 아이디어<br><span>3가지 전략 방향</span></h1>
+    <div class="cover-meta">
+      <strong>2026년 4월 15일</strong> &nbsp;·&nbsp; 서정호 디렉터 → 천삼 총괄
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>목차</h2>
+    <ol>
+      <li>
+        <span class="toc-num">1</span>
+        <a href="#kiki">카카오엔터 팬덤앱 전략 — 키키(KIKI) 벤치마킹</a>
+      </li>
+      <li>
+        <span class="toc-num">2</span>
+        <a href="#narrative">게임 서사 전략 — 판타지 다마고치 비유</a>
+      </li>
+      <li>
+        <span class="toc-num">3</span>
+        <a href="#balatro">발라트로 동양버전 — 맞고 기반 멀티플랫폼 카드게임</a>
+      </li>
+    </ol>
+  </div>
+
+  <!-- SECTION 1: KIKI -->
+  <div class="section" id="kiki">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <h2>카카오엔터 팬덤앱 — 키키(KIKI) 벤치마킹</h2>
+      <span class="badge">팬덤앱 전략</span>
+    </div>
+    <div class="section-body">
+
+      <div class="callout orange">
+        <strong>⚠️ 핵심 전제</strong>
+        단순히 웹툰 캐릭터를 얹은 팬덤앱이 되면 안 된다. 키키 멤버들이 직접 살아 움직여야 효과가 난다.
+      </div>
+
+      <h3>키키(KIKI)란?</h3>
+      <p>키키는 <strong>여돌 팬덤</strong> 타깃 서비스다. 하이브의 <strong>위버스(Weverse)</strong>가 방탄소년단으로 성장한 것처럼, 키키는 여돌 팬덤을 중심으로 설계된 플랫폼이다.</p>
+
+      <table>
+        <tr>
+          <th>키키 요소</th>
+          <th>대응 레퍼런스</th>
+          <th>핵심 기능</th>
+        </tr>
+        <tr>
+          <td>샤라웃(Shout-out)</td>
+          <td>하이브인더섬</td>
+          <td>멤버가 직접 유저/캐릭터를 언급</td>
+        </tr>
+        <tr>
+          <td>광장 채팅</td>
+          <td>하이브인더섬 광장</td>
+          <td>팬들의 실시간 동시 채팅 집결</td>
+        </tr>
+        <tr>
+          <td>의상 온타임 출시</td>
+          <td>-</td>
+          <td>무대 의상 → 게임 아이템 즉시 반영</td>
+        </tr>
+        <tr>
+          <td>마이홈 꾸미기</td>
+          <td>본디(Bondee) / 싸이월드</td>
+          <td>꾸미기 구매 + 뽐내기 랭킹</td>
+        </tr>
+      </table>
+
+      <h3>3개 레이어 구조</h3>
+      <div class="layer-grid">
+        <div class="layer-card highlight">
+          <div class="layer-icon">🌟</div>
+          <h4>멤버 레이어 (핵심)</h4>
+          <p>샤라웃 + 광장 동시 채팅 + 무대 의상 온타임 출시. 멤버가 살아있어야 전체가 작동한다.</p>
+        </div>
+        <div class="layer-card">
+          <div class="layer-icon">🏠</div>
+          <h4>유저 레이어</h4>
+          <p>본디식 마이홈(싸이월드 개념) + 유저간 SNS 인터랙션. 꾸미기 구매 / 방문 / 랭킹 과시 루프.</p>
+        </div>
+        <div class="layer-card">
+          <div class="layer-icon">🎮</div>
+          <h4>게임 레이어</h4>
+          <p>3Match 또는 검증된 캐주얼 게임. 게임 자체가 핵심이 아닌 <strong>접착제 역할</strong>.</p>
+        </div>
+      </div>
+
+      <h3>수익 사이클</h3>
+      <div class="flow">
+        <span class="flow-item">멤버 샤라웃</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-item">캐릭터 착장 반영</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-item orange">아이템 구매</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-item">마이홈 과시 / 랭킹</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-item orange">재구매 루프</span>
+      </div>
+
+      <div class="callout">
+        <strong>🔑 포지셔닝 조건</strong>
+        키키 멤버들이 "공식 캐릭터처럼" 느껴져야 팬덤이 반응한다. 브랜드 포지셔닝이 전제되어야 수익 사이클이 작동한다.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 2: NARRATIVE -->
+  <div class="section" id="narrative">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <h2>게임 서사 전략 — 판타지 다마고치 비유</h2>
+      <span class="badge">게임 기획 철학</span>
+    </div>
+    <div class="section-body">
+
+      <div class="callout orange">
+        <strong>⚠️ 비유임을 명심할 것</strong>
+        "판타지 다마고치"는 장르명이 아니라, 비주얼 서사 설계 전략을 설명하는 은유다.
+      </div>
+
+      <h3>왜 지금 서사가 중요한가</h3>
+      <p>최근 캐주얼 게임과 H5 게임들은 <strong>단순 코어 루프 + 메타 코어(성장)</strong>에만 집중한다. 게임이 본질적으로 가져야 할 서사가 없다.</p>
+      <p>텍스트나 작가 필력으로 사용자를 이끄는 방식은 <strong>훅이 약해진 시대에 더 이상 강력하게 작동하지 않는다.</strong> 스티키니스를 만들어내기 어려운 환경이다.</p>
+
+      <h3>해법 — 비주얼 서사</h3>
+      <div class="layer-grid">
+        <div class="layer-card">
+          <div class="layer-icon">🥚</div>
+          <h4>시작: 무언가 주어진다</h4>
+          <p>게임을 시작하면 플레이어에게 "무언가"가 주어진다. (알, 씨앗, 파편...)</p>
+        </div>
+        <div class="layer-card highlight">
+          <div class="layer-icon">🐉</div>
+          <h4>성장: 눈에 보이게 변한다</h4>
+          <p>게임을 플레이할 때마다 시각적으로 성장한다. 텍스트 설명 없이 <strong>비주얼로 전달</strong>.</p>
+        </div>
+        <div class="layer-card">
+          <div class="layer-icon">🔮</div>
+          <h4>궁금증: 다음이 보고 싶다</h4>
+          <p>"다음엔 어떻게 되지?"라는 호기심을 자연스럽게 만든다. <strong>직관적 비주얼 서사</strong>.</p>
+        </div>
+      </div>
+
+      <h3>단기·중기·장기 훅 구조</h3>
+      <table>
+        <tr>
+          <th>단계</th>
+          <th>서사 훅</th>
+          <th>설계 방식</th>
+        </tr>
+        <tr>
+          <td><span class="label">단기</span></td>
+          <td>알 → 부화 → 첫 성장</td>
+          <td>이벤트 트리거형 (플레이하면 즉시 반응)</td>
+        </tr>
+        <tr>
+          <td><span class="label">중기</span></td>
+          <td>진화 분기 / 속성 각성</td>
+          <td>플레이어 선택형 (내 선택이 결과를 만듦)</td>
+        </tr>
+        <tr>
+          <td><span class="label orange">장기</span></td>
+          <td>세계관 개방 / 소셜 확장</td>
+          <td>다른 유저와의 교류로 확장</td>
+        </tr>
+      </table>
+
+      <div class="callout">
+        <strong>🔑 핵심 원칙</strong>
+        작가의 필력에 끌려가지 않는다. 서사를 "이벤트 테이블 + 조건 트리거"로 모듈화하면, 텍스트는 교체 가능한 스킨이 된다. 이것이 AI-Native 서사 설계의 방향이다.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3: BALATRO -->
+  <div class="section" id="balatro">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <h2>발라트로 동양버전 — 맞고 기반 카드게임</h2>
+      <span class="badge">신규 타이틀 기획</span>
+    </div>
+    <div class="section-body">
+
+      <h3>발라트로(Balatro)란?</h3>
+      <p><strong>스팀에서 1인 개발로 대성공</strong>한 포커 기반 카드 로그라이크 게임이다. 포커 패로 점수를 쌓고, 조커 카드로 시너지를 만드는 단순하지만 깊이 있는 구조가 핵심이다.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-val">1인</div>
+          <div class="stat-label">개발팀 규모</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">4개</div>
+          <div class="stat-label">커버 플랫폼<br>(H5·모바일·스팀·IP)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-val">맞고</div>
+          <div class="stat-label">동양버전 베이스</div>
+        </div>
+      </div>
+
+      <h3>동양버전 전환 설계</h3>
+      <table>
+        <tr>
+          <th>발라트로 원본</th>
+          <th>동양버전 전환</th>
+        </tr>
+        <tr>
+          <td>포커 패 (숫자/무늬)</td>
+          <td>맞고 패 → <strong>전부 캐릭터 이미지로 교체</strong></td>
+        </tr>
+        <tr>
+          <td>조커 카드 (특수 강화)</td>
+          <td>맞고 특수 패 → <strong>발라트로식 변형 적용</strong></td>
+        </tr>
+        <tr>
+          <td>솔로 점수 빌딩</td>
+          <td><strong>미니클립형 대전 방식</strong> 베이스</td>
+        </tr>
+        <tr>
+          <td>서양 카드 IP</td>
+          <td><strong>다양한 IP 제휴</strong>에 유리한 비주얼 구조</td>
+        </tr>
+      </table>
+
+      <h3>멀티플랫폼 전략</h3>
+      <div class="flow">
+        <span class="flow-item orange">H5 브라우저</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-item">모바일 앱</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-item">스팀 PC</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-item orange">IP 제휴 스킨</span>
+      </div>
+
+      <div class="callout">
+        <strong>🔑 IP 제휴 적합성</strong>
+        맞고 이미지를 캐릭터로 완전 교체하는 구조이기 때문에, 어떤 IP를 얹어도 자연스럽다. 웹툰·웹소설 IP를 카드 캐릭터로 변환하면 IP 제휴 게임으로 즉시 전환 가능하다.
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  게임그룹 내부 전략 브리핑 &nbsp;·&nbsp; 2026.04.15 &nbsp;·&nbsp; 배포 범위: 천삼 총괄
+</div>
+
+</body>
+</html>
