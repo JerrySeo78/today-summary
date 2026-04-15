@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GameBakery.ai 리서치 — 베이글코드 AI 게임개발 엔진</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0b0d17;--surface:#131627;--card:#1a1d33;--border:#2a2d4a;--accent:#7c6cf0;--accent2:#00d2d3;--gold:#feca57;--text:#e4e4f0;--muted:#7f829e}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;line-height:1.7;padding:40px 20px}
+.wrap{max-width:860px;margin:0 auto}
+h1{font-size:32px;font-weight:900;margin-bottom:8px;background:linear-gradient(135deg,#fff,var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h2{font-size:22px;font-weight:700;margin-top:40px;margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--border);color:var(--accent2)}
+h3{font-size:17px;font-weight:600;color:var(--accent);margin-top:24px;margin-bottom:8px}
+p,li{font-size:15px;color:var(--muted);line-height:1.8}
+strong{color:var(--text)}
+a{color:var(--accent2);text-decoration:none}
+a:hover{text-decoration:underline}
+ul,ol{padding-left:24px;margin:8px 0}
+li{margin-bottom:4px}
+blockquote{border-left:3px solid var(--accent);background:var(--card);padding:16px 20px;border-radius:0 10px 10px 0;margin:20px 0;font-size:16px;color:var(--text);font-weight:500}
+hr{border:none;border-top:1px solid var(--border);margin:32px 0}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+th{background:var(--accent);color:#fff;padding:10px 14px;text-align:left;font-weight:500}
+td{padding:10px 14px;border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--card)}
+.badge{display:inline-block;background:var(--card);border:1px solid var(--border);color:var(--accent2);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin:12px 0}
+.card h4{color:var(--accent2);font-size:15px;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:16px 0}
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.flow .step{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;color:var(--text)}
+.flow .arrow{color:var(--accent);font-size:18px}
+.tag{display:inline-block;background:var(--accent)22;color:var(--accent);padding:2px 8px;border-radius:4px;font-size:12px;font-weight:600;margin:2px}
+.sources{margin-top:24px}
+.sources a{display:block;padding:6px 0;font-size:13px;color:var(--muted)}
+.sources a:hover{color:var(--accent2)}
+.meta{text-align:center;color:var(--muted);font-size:12px;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="badge">AI Game Development Research</div>
+<h1>GameBakery.ai 리서치</h1>
+<p style="color:var(--muted);margin-bottom:32px">베이글코드 AI 게임개발 엔진 분석</p>
+
+<hr>
+
+<h2>1. 개요</h2>
+<p><strong>GameBakery.ai</strong>는 베이글코드(Bagelcode)가 개발 중인 AI 게임개발 엔진으로 알려져 있다. 단, 도메인(<code>gamebakery.ai</code>)은 현재 외부에서 접속 불가 상태이며, 공개된 보도/자료에서도 "GameBakery"라는 명칭은 직접적으로 언급되지 않는다.</p>
+<p>공개된 정보는 모두 베이글코드 <strong>제네바팀(Geneva Team)</strong>이 자체 개발한 <strong>리만 엔진(Riemann Engine / RIMEN ENGINE)</strong>을 중심으로 구성되어 있어, GameBakery.ai는 리만 엔진의 후속/외부 브랜딩일 가능성이 높다.</p>
+
+<hr>
+
+<h2>2. 엔진의 정체</h2>
+<p>전통적인 게임 엔진(Unity, Unreal과 같은 렌더링·물리·씬 그래프 런타임)이 아니라, <strong>AI 파이프라인 오케스트레이션 엔진</strong>에 가깝다. 즉 "텍스트 → 게임 콘텐츠"를 자동 생성하는 <strong>LLM 체인 기반 제작 파이프라인</strong>이다.</p>
+
+<h3>2.1 전신: 리만 엔진 (Riemann Engine)</h3>
+<div class="card">
+<ul>
+<li><strong>자체 개발 엔진</strong> (외부 라이선스 엔진 아님)</li>
+<li><strong>비주얼 노벨 제작 특화 툴</strong> — 일러스트 기반·단순 로직이라 AI 친화적 장르라고 판단해 선택</li>
+<li>베이글코드 스스로 "제작 속도 향상에도 불구하고 시장 경쟁력은 제한적이었다"고 평가</li>
+</ul>
+</div>
+
+<h3>2.2 기술 구조 — "엔진"보다 "체인"</h3>
+<p>공개된 <strong>오픈소스 LLM</strong>과 <strong>AI 서비스들</strong>을 <strong>체인 구조</strong>로 연결:</p>
+<div class="flow">
+<div class="step">1. 장면 분할<br><small style="color:var(--muted)">한 줄 = 한 장면</small></div>
+<div class="arrow">→</div>
+<div class="step">2. 캐릭터 분석<br><small style="color:var(--muted)">역할·외형·관계</small></div>
+<div class="arrow">→</div>
+<div class="step">3. 배경 구성</div>
+<div class="arrow">→</div>
+<div class="step">4. 이미지/영상 생성</div>
+<div class="arrow">→</div>
+<div class="step">5. 자막·효과 조립</div>
+</div>
+<p>사실상 <strong>LangChain 스타일의 LLM 오케스트레이션 패턴</strong>을 도메인(비주얼 노벨)에 특화한 구현.</p>
+
+<h3>2.3 설계 철학</h3>
+<div class="grid">
+<div class="card">
+<h4>"AI 파이프라인은 전문가 파이프라인과 근본적으로 달라야 한다"</h4>
+</div>
+<div class="card">
+<h4>"80% 가능한 작업을 N번 반복 → 사람이 최선 선택"</h4>
+<p>AI가 100% 대신하는 것이 아니라 여러 번 빠르게 시도 가능한 파이프라인을 짜는 것이 핵심</p>
+</div>
+</div>
+
+<hr>
+
+<h2>3. 조직 구조</h2>
+
+<div class="grid">
+<div class="card">
+<h4>제네바팀 (Geneva Team)</h4>
+<p>AI 전문 <strong>소규모 조직</strong>. 리만 엔진 및 스토리 시각화 파이프라인 개발 담당.</p>
+<blockquote style="font-size:14px;margin:8px 0">"AI의 파도가 올 때 언제든 올라탈 수 있는 준비된 조직" — 김훈일 매니저</blockquote>
+</div>
+<div class="card">
+<h4>PKC팀</h4>
+<p>실제 라이브 게임 개발에 AI 광범위 활용</p>
+<ul>
+<li><span class="tag">Copilot</span> <span class="tag">ChatGPT</span> 일상적 사용</li>
+<li><span class="tag">Midjourney</span>로 디즈니 스타일 캐릭터 시안</li>
+<li>AI 음성 기술로 게임 내 나레이션 생성</li>
+</ul>
+</div>
+</div>
+
+<hr>
+
+<h2>4. 베이글코드 회사 배경</h2>
+<table>
+<tr><th>항목</th><th>내용</th></tr>
+<tr><td>설립</td><td>2012년</td></tr>
+<tr><td>규모</td><td>200개국 4천만 명 플레이어</td></tr>
+<tr><td>주력</td><td>소셜 카지노 / 슬롯머신 게임</td></tr>
+<tr><td>핵심 역량</td><td>데이터 + AI + UA 마케팅</td></tr>
+<tr><td>인프라</td><td>Databricks 고객사</td></tr>
+<tr><td>AI 문화</td><td>마케팅·개발·운영 전반의 '문화'로 자리잡음</td></tr>
+</table>
+
+<hr>
+
+<h2>5. GameBakery.ai 현재 상태</h2>
+<div class="card" style="border-color:var(--gold)">
+<ul>
+<li>도메인 <code>gamebakery.ai</code> / <code>www.gamebakery.ai</code> <strong>모두 접속 불가</strong> (ECONNREFUSED)</li>
+<li>공개 보도/검색 결과에 <strong>GameBakery 명칭 미등장</strong></li>
+<li><strong>추론:</strong> 리만 엔진의 진화형 / 외부 공개용 브랜드명으로, 비주얼 노벨에서 더 넓은 장르로 확장하려는 시도일 가능성</li>
+</ul>
+</div>
+
+<hr>
+
+<h2>6. 한 줄 요약</h2>
+<blockquote>GameBakery.ai = 베이글코드 리만 엔진 계열의 LLM 체인 기반 게임 콘텐츠 자동 생성 파이프라인. Unity 같은 런타임 엔진이 아니라 "텍스트 → 게임"을 만드는 제작 파이프라인 엔진.</blockquote>
+
+<hr>
+
+<h2>출처</h2>
+<div class="sources">
+<a href="https://www.gamevu.co.kr/news/articleView.html?idxno=52563" target="_blank">게임뷰 — 베이글코드가 AI로 열어가는 스토리 시각화의 파도</a>
+<a href="https://www.gametoc.co.kr/news/articleView.html?idxno=103029" target="_blank">게임톡 — 베이글코드 김훈일 매니저 "AI 시대 맞춰 작업 방식도 변해야 한다"</a>
+<a href="https://www.bagelcode.com/article/pkc%ED%8C%80-ai-%EA%B8%B0%EC%88%A0%EB%A1%9C-%ED%95%9C%EA%B3%84%EB%A5%BC-%EB%84%98%EB%8B%A4/" target="_blank">베이글코드 — PKC팀: AI 기술로 한계를 넘다</a>
+<a href="https://www.thisisgame.com/webzine/special/nboard/5/?n=192082" target="_blank">디스이즈게임 — AI가 '문화'로 자리잡은 베이글코드</a>
+<a href="https://www.bagelcode.com/en/about-en/" target="_blank">Bagelcode 공식 사이트</a>
+<a href="https://www.databricks.com/customers/bagelcode" target="_blank">Databricks Customer Story: Bagelcode</a>
+</div>
+
+<div class="meta">GameBakery.ai Research · 2026</div>
+
+</div>
+</body>
+</html>
